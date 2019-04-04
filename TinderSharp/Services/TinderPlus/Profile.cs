@@ -13,7 +13,7 @@ namespace TinderSharp.Services.TinderPlus
             {
                 hide_age = hide
             };
-            TinderProfile response = new RestMethods(token).Post<TinderProfile>(TinderAPI.Profile, showAge);
+            TinderProfile response = new RestMethods(TinderAPI.Profile, token).Post<TinderProfile>(showAge);
 
             return response;
         }
@@ -25,7 +25,7 @@ namespace TinderSharp.Services.TinderPlus
                 hide_distance = hide
             };
 
-            TinderProfile response = new RestMethods(token).Post<TinderProfile>(TinderAPI.Profile, hideDistace);
+            TinderProfile response = new RestMethods(TinderAPI.Profile, token).Post<TinderProfile>(hideDistace);
 
             return response;
         }
@@ -37,7 +37,7 @@ namespace TinderSharp.Services.TinderPlus
                 hide_ads = hide
             };
 
-            TinderProfile response = new RestMethods(token).Post<TinderProfile>(TinderAPI.Profile, obj);
+            TinderProfile response = new RestMethods(TinderAPI.Profile, token).Post<TinderProfile>( obj);
 
             return response;
         }

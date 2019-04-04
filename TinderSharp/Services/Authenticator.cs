@@ -11,7 +11,7 @@ namespace TinderSharp.Services
         public static LoggedUser Authenticate(FacebookAuthentication auth)
         {
 
-            var response = new TinderEndpoint.RestMethods().Post<LoggedUser>(TinderAPI.Authenticate, auth);
+            var response = new TinderEndpoint.RestMethods(TinderAPI.Authenticate).Post<LoggedUser>(auth);
 
             return response;  
         }
@@ -29,7 +29,7 @@ namespace TinderSharp.Services
         public static LoggedUser Authenticate2FA(SMSAuthentication auth)
         {
 
-            var response = new TinderEndpoint.RestMethods().Post<LoggedUser>(TinderAPI.Authenticate2FA, auth);
+            var response = new TinderEndpoint.RestMethods(TinderAPI.Authenticate2FA).Post<LoggedUser>(auth);
 
             return response;
         }

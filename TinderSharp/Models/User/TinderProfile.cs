@@ -35,9 +35,9 @@ namespace TinderSharp.Models.User
 
     public partial class EmailSettings
     {
-        public bool NewMatches { get; set; }
-        public bool Messages { get; set; }
-        public bool Promotions { get; set; }
+        public bool new_matches { get; set; }
+        public bool messages { get; set; }
+        public bool promotions { get; set; }
     }
 
     public partial class Position

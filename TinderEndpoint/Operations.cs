@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using RestSharp;
 using System;
 using System.IO;
 using System.Net;
@@ -33,16 +32,19 @@ namespace TinderEndpoint
 
     public class RestMethods
     {
-        //RestClient client;
         HttpWebRequest request;
         byte[] RequestContent;
 
         private string MakeRequest()
         {
-            Stream datastream = request.GetRequestStream();
-            datastream.Write(RequestContent, 0, RequestContent.Length);
+            Stream datastream;
+            if (request.Method != "GET")
+            {
+                datastream = request.GetRequestStream();
+                datastream.Write(RequestContent, 0, RequestContent.Length);
 
-            datastream.Close();
+                datastream.Close();
+            }
 
             WebResponse response = request.GetResponse();
             datastream = response.GetResponseStream();
@@ -56,18 +58,14 @@ namespace TinderEndpoint
             return responseFromServer;
         }
 
-        public RestMethods(Guid authToken = default(Guid), string path)
+        private void LoadContent(string content)
         {
-            //client = new RestClient(TinderAPI.baseURL);
+            RequestContent = Encoding.UTF8.GetBytes(content);
+            request.ContentLength = RequestContent.Length;
+        }
 
-            //client.AddDefaultHeader("Content-type", "application/json");
-            //client.AddDefaultHeader("User-agent", "Tinder/7.5.3 (iPhone; iOS 10.3.2; Scale/2.00)");
-            //client.AddDefaultHeader("app_version", "6.9.4");
-            //client.AddDefaultHeader("platform", "ios");
-            //client.AddDefaultHeader("Accept", "application/json");
-
-            //if (authToken  != Guid.Empty)
-            //    client.AddDefaultHeader("X-Auth-Token", authToken.ToString());
+        public RestMethods(string path,Guid authToken = default(Guid))
+        {
 
             request = (HttpWebRequest)WebRequest.Create(TinderAPI.baseURL + path);
             request.Headers.Add("Content-type", "application/json");
@@ -78,99 +76,81 @@ namespace TinderEndpoint
 
 
         }
-        public T Get<T>(string path)
+        public T Get<T>()
             where T : new()
         {
 
-            
-            var request = client.Get<T>(new RestRequest(path));
+            string content = Get();
 
-            
+            T obj = JsonConvert.DeserializeObject<T>(content);
 
-            if (request.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                if (request.Data != null)
-                    return request.Data;
-                else
-                    return JsonConvert.DeserializeObject<T>(request.Content);
-            }
-            else
-                return default(T);
-
+            return obj;
         }
-        public string Get(string path)
+        public string Get()
         {
 
-            var request = client.Get(new RestRequest(path));
+            request.Method = "GET";
 
-            return request.Content;
-
+            return MakeRequest();
 
         }
-        public string Post( object content, Guid token = default(Guid))
+        public string Post(object content)
         {
-            //var request = new RestRequest(path);
-            //request.AddJsonBody(content);
-
-
-            //var response = client.Post(request);
-
-            //return response.Content;
-
             string contentA = JsonConvert.SerializeObject(content);
 
-            RequestContent = Encoding.UTF8.GetBytes(contentA);
-            request.ContentLength = RequestContent.Length;
+            LoadContent(contentA);
             
             request.Method = "POST";
 
             return MakeRequest();
-
-
         }
-        public T Post<T>(string path, object content)
+        public T Post<T>(object content)
+            where T : new()
+        {
+            string response = Post(content);
+
+            T obj = JsonConvert.DeserializeObject<T>(response);
+
+            return obj;
+        }
+
+        public string Delete()
+        {
+            request.Method = "DELETE";
+
+            return MakeRequest();
+        }
+        public T Delete<T>()
             where T : new()
         {
 
-            var request = new RestRequest(path);
-            request.AddJsonBody(content);
+            string content = Delete();
 
-            var response = client.Post<T>(request);
+            T obj = JsonConvert.DeserializeObject<T>(content);
 
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                return response.Data;
-            else
-                return default(T);
-
+            return obj;
         }
 
-        public string Delete(string Path)
+        public string Put(object obj)
         {
-            var request = new RestRequest(Path);
 
-            return client.Delete(request).Content;
+            string content = JsonConvert.SerializeObject(obj);
+
+            LoadContent(content);
+
+            request.Method = "PUT";
+
+            return MakeRequest();
         }
-        public T Delete<T>(string Path)
+        public T Put<T>(object obj)
             where T : new()
         {
-            var request = new RestRequest(Path);
 
-            return client.Delete<T>(request).Data;
-        }
+            string response = Put(obj);
 
-        public string Put(string Path,object obj)
-        {
-            var request = new RestRequest(Path);
-            request.AddJsonBody(obj);
-            return client.Put(request).Content;
-        }
-        public T Put<T>(string Path,object obj)
-            where T : new()
-        {
-            var request = new RestRequest(Path);
-            request.AddJsonBody(obj);
+            T objResponse = JsonConvert.DeserializeObject<T>(response);
 
-            return client.Put<T>(request).Data;
+            return objResponse;
         }
 
     }

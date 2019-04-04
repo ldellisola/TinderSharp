@@ -11,7 +11,7 @@ namespace TinderSharp.Services
 
         public static TinderProfile GetProfile(Guid token)
         {
-            var response = new RestMethods(token).Get<TinderProfile>(TinderAPI.Profile);
+            var response = new RestMethods(TinderAPI.Profile,token).Get<TinderProfile>();
 
             return response;
         }
@@ -37,7 +37,7 @@ namespace TinderSharp.Services
         public static TinderProfile UpdateSearchPreferences(Guid token, SearchPreferences pref)
         {
 
-            var response = new RestMethods(token).Post<TinderProfile>(TinderAPI.Profile,pref);
+            var response = new RestMethods(TinderAPI.Profile, token).Post<TinderProfile>(pref);
 
             return response;
         }

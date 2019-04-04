@@ -17,46 +17,46 @@ namespace TinderSharp.Models.User
     public partial class Globals
     {
         public bool Friends { get; set; }
-        public string InviteType { get; set; }
-        public long RecsInterval { get; set; }
-        public long UpdatesInterval { get; set; }
-        public long RecsSize { get; set; }
-        public string MatchmakerDefaultMessage { get; set; }
-        public string ShareDefaultText { get; set; }
-        public long BoostDecay { get; set; }
-        public long BoostUp { get; set; }
-        public long BoostDown { get; set; }
-        public bool Sparks { get; set; }
-        public bool Kontagent { get; set; }
-        public bool SparksEnabled { get; set; }
-        public bool KontagentEnabled { get; set; }
-        public bool Mqtt { get; set; }
-        public bool TinderSparks { get; set; }
-        public long MomentsInterval { get; set; }
-        public bool FetchConnections { get; set; }
-        public bool Plus { get; set; }
+        public string invite_type { get; set; }
+        public long recs_interval { get; set; }
+        public long updates_interval { get; set; }
+        public long recs_size { get; set; }
+        public string matchmaker_default_message { get; set; }
+        public string share_default_text { get; set; }
+        public long boost_decay { get; set; }
+        public long boost_Up { get; set; }
+        public long boost_down { get; set; }
+        public bool sparks { get; set; }
+        public bool kontagent { get; set; }
+        public bool sparks_enabled { get; set; }
+        public bool kontagen_enabled { get; set; }
+        public bool mqtt { get; set; }
+        public bool tinder_sparks { get; set; }
+        public long moments_interval { get; set; }
+        public bool fetch_connections { get; set; }
+        public bool plus { get; set; }
     }
 
     public partial class User
     {
-        public string Id { get; set; }
-        public DateTimeOffset ActiveTime { get; set; }
-        public DateTimeOffset CreateDate { get; set; }
-        public long AgeFilterMax { get; set; }
-        public long AgeFilterMin { get; set; }
-        public Guid ApiToken { get; set; }
-        public bool Banned { get; set; }
+        public string _id { get; set; }
+        public DateTimeOffset active_time { get; set; }
+        public DateTimeOffset create_date { get; set; }
+        public long age_filter_max { get; set; }
+        public long age_filter_min { get; set; }
+        public Guid api_token { get; set; }
+        public bool banned { get; set; }
         public string Bio { get; set; }
-        public DateTimeOffset BirthDate { get; set; }
-        public long ConnectionCount { get; set; }
-        public long DistanceFilter { get; set; }
-        public string FullName { get; set; }
+        public DateTimeOffset birth_date { get; set; }
+        public long connection_count { get; set; }
+        public long distance_filter { get; set; }
+        public string full_name { get; set; }
         public List<string> Groups { get; set; }
-        public long Gender { get; set; }
-        public long GenderFilter { get; set; }
+        public long gender { get; set; }
+        public long gender_filter { get; set; }
         public List<Interest> Interests { get; set; }
         public string Name { get; set; }
-        public DateTimeOffset PingTime { get; set; }
+        public DateTimeOffset ping_time { get; set; }
         public bool Discoverable { get; set; }
         public List<Photo> Photos { get; set; }
         public List<Job> Jobs { get; set; }
@@ -67,16 +67,16 @@ namespace TinderSharp.Models.User
     public partial class Interest
     {
         public string Id { get; set; }
-        public string CreatedTime { get; set; }
+        public string created_time { get; set; }
         public string Name { get; set; }
     }
 
     public partial class Versions
     {
-        public string ActiveText { get; set; }
-        public string AgeFilter { get; set; }
+        public string active_text { get; set; }
+        public string age_filter { get; set; }
         public string Matchmaker { get; set; }
         public string Trending { get; set; }
-        public string TrendingActiveText { get; set; }
+        public string trending_active_text { get; set; }
     }
 }

@@ -40,7 +40,7 @@ namespace TinderSharp.Models.User
         public string Extension { get; set; }
         public string FbId { get; set; }
         public List<ProcessedFile> ProcessedFiles { get; set; }
-        public CropInfo CropInfo { get; set; }
+        public CropInfo crop_info { get; set; }
     }
 
     public partial class CropInfo
