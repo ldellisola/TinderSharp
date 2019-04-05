@@ -17,7 +17,7 @@ namespace TinderSharp.Models.User
         public Versions Versions { get; set; }
         public MetadataGlobals Globals { get; set; }
         public List<string> Tutorials { get; set; }
-        public Places Places { get; set; }
+        public PlacesMedatada Places { get; set; }
         public Products Products { get; set; }
         public UserMetadata User { get; set; }
     }
@@ -130,7 +130,7 @@ namespace TinderSharp.Models.User
         public long typing_ttl { get; set; }
     }
 
-    public partial class Places
+    public partial class PlacesMedatada
     {
         public bool available { get; set; }
         public string places_ui { get; set; }

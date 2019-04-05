@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TinderSharp.Models.User
 {
-    public class Message
+    public class SendMessage
     {
         public string message { get; set; }
     }

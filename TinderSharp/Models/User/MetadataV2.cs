@@ -6,35 +6,34 @@ namespace TinderSharp.Models.User
 {
     public partial class MetadataV2Container
     {
-        //public Meta Meta { get; set; }
         public MetadataV2 Data { get; set; }
     }
 
     public partial class MetadataV2
     {
-        public ClientResources ClientResources { get; set; }
+        public ClientResources client_resources { get; set; }
         public Account Account { get; set; }
-        public CreditCard CreditCard { get; set; }
+        public CreditCard credit_card { get; set; }
         public BoostV2 Boost { get; set; }
-        public FastMatch FastMatch { get; set; }
-        public BackgroundLocation GoldHomepage { get; set; }
-        public TopPicks TopPicks { get; set; }
-        public BackgroundLocation IntroPricing { get; set; }
+        public FastMatch fast_match { get; set; }
+        public BackgroundLocation gold_homepage { get; set; }
+        public TopPicks top_picks { get; set; }
+        public BackgroundLocation intro_pricing { get; set; }
         public Paywall Paywall { get; set; }
         public Merchandising Merchandising { get; set; }
         public Recs Recs { get; set; }
-        public TinderPlusMetadataV2 TinderPlus { get; set; }
-        public SuperLike SuperLike { get; set; }
+        public TinderPlusMetadataV2 tinder_plus { get; set; }
+        public SuperLike super_like { get; set; }
         public ProfileMetadata Profile { get; set; }
         public Select Select { get; set; }
         public Feedback Feedback { get; set; }
-        public TypingIndicator TypingIndicator { get; set; }
-        public Places Places { get; set; }
-        public BackgroundLocation TermsOfService { get; set; }
-        public SwipeSurge SwipeSurge { get; set; }
-        public BackgroundLocation CrmInbox { get; set; }
-        public BackgroundLocation BackgroundLocation { get; set; }
-        public BackgroundLocation TinderuSwipeOff2019 { get; set; }
+        public TypingIndicator typing_indicator { get; set; }
+        public PlacesMedatada Places { get; set; }
+        public BackgroundLocation terms_of_service { get; set; }
+        public SwipeSurge swipe_surge { get; set; }
+        public BackgroundLocation crm_inbox { get; set; }
+        public BackgroundLocation background_location { get; set; }
+        public BackgroundLocation tinderu_swipe_off_2019 { get; set; }
         public Levers Levers { get; set; }
     }
 
@@ -145,14 +144,14 @@ namespace TinderSharp.Models.User
     public partial class TopPicks
     {
         public bool Enabled { get; set; }
-        public bool LocalDailyEnabled { get; set; }
-        public string LocalDailyMsg { get; set; }
-        public LocalDailyOffsets LocalDailyOffsets { get; set; }
-        public bool FreeDaily { get; set; }
-        public long NumFreeRatedLimit { get; set; }
-        public long RefreshInterval { get; set; }
+        public bool local_daily_enabled { get; set; }
+        public string local_daily_msg { get; set; }
+        public LocalDailyOffsets local_daily_offsets { get; set; }
+        public bool free_daily { get; set; }
+        public long num_free_rated_limit { get; set; }
+        public long refresh_interval { get; set; }
         public long Lookahead { get; set; }
-        public bool PostSwipePaywall { get; set; }
+        public bool post_swipe_paywall { get; set; }
     }
 
     public partial class LocalDailyOffsets
@@ -163,9 +162,4 @@ namespace TinderSharp.Models.User
         public long Offset3 { get; set; }
     }
 
-
-    //public partial class Meta
-    //{
-    //    public long Status { get; set; }
-    //}
 }

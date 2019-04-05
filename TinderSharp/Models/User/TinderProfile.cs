@@ -8,29 +8,29 @@ namespace TinderSharp.Models.User
     public partial class TinderProfile
     {
         public string Id { get; set; }
-        public long AgeFilterMax { get; set; }
-        public long AgeFilterMin { get; set; }
+        public long age_filter_max { get; set; }
+        public long age_filter_min { get; set; }
         public string Bio { get; set; }
-        public DateTimeOffset BirthDate { get; set; }
-        public DateTimeOffset CreateDate { get; set; }
+        public DateTimeOffset birth_date { get; set; }
+        public DateTimeOffset create_date { get; set; }
         public bool Discoverable { get; set; }
-        public long DistanceFilter { get; set; }
-        public EmailSettings EmailSettings { get; set; }
-        public long FacebookId { get; set; }
+        public long distance_filter { get; set; }
+        public EmailSettings email_settings { get; set; }
+        public long facebook_id { get; set; }
         public long Gender { get; set; }
-        public long GenderFilter { get; set; }
-        public List<long> InterestedIn { get; set; }
+        public long gender_filter { get; set; }
+        public List<long> interested_in { get; set; }
         public List<Job> Jobs { get; set; }
         public string Name { get; set; }
         public List<Photo> Photos { get; set; }
-        public bool PhotoOptimizerEnabled { get; set; }
-        public bool PhotoOptimizerHasResult { get; set; }
-        public DateTimeOffset PingTime { get; set; }
+        public bool photo_optimizer_enabled { get; set; }
+        public bool photo_optimizer_has_result { get; set; }
+        public DateTimeOffset ping_time { get; set; }
         public Position Pos { get; set; }
-        public PositionInfo PosInfo { get; set; }
+        public PositionInfo pos_info { get; set; }
         public List<School> Schools { get; set; }
         public string Username { get; set; }
-        public bool CanCreateSquad { get; set; }
+        public bool can_create_squad { get; set; }
     }
 
     public partial class EmailSettings

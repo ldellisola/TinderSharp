@@ -32,7 +32,6 @@ namespace TinderSharp.Models.User
         public Teaser teaser { get; set; }
         public List<Teaser> teasers { get; set; }
         public long gender { get; set; }
-        //public BirthDateInfo birth_date_info { get; set; }
         public long s_number { get; set; }
         public List<SpotifyTopArtist> SpotifyTopArtists { get; set; }
         public Track SpotifyThemeTrack { get; set; }
@@ -85,7 +84,7 @@ namespace TinderSharp.Models.User
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public Uri PreviewUrl { get; set; }
+        public Uri preview_url { get; set; }
         public string Uri { get; set; }
         public Album Album { get; set; }
         public List<Artist> Artists { get; set; }
@@ -108,7 +107,7 @@ namespace TinderSharp.Models.User
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public Track TopTrack { get; set; }
+        public Track top_track { get; set; }
         public bool Selected { get; set; }
     }
 

@@ -37,25 +37,32 @@ namespace TinderEndpoint
 
         private string MakeRequest()
         {
-            Stream datastream;
-            if (request.Method != "GET")
+            try
             {
-                datastream = request.GetRequestStream();
-                datastream.Write(RequestContent, 0, RequestContent.Length);
+                Stream datastream;
+                if (request.Method != "GET")
+                {
+                    datastream = request.GetRequestStream();
+                    datastream.Write(RequestContent, 0, RequestContent.Length);
+
+                    datastream.Close();
+                }
+
+                WebResponse response = request.GetResponse();
+                datastream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(datastream);
+                // Read the content.
+                string responseFromServer = reader.ReadToEnd();
 
                 datastream.Close();
+                response.Close();
+
+                return responseFromServer;
             }
-
-            WebResponse response = request.GetResponse();
-            datastream = response.GetResponseStream();
-            StreamReader reader = new StreamReader(datastream);
-            // Read the content.
-            string responseFromServer = reader.ReadToEnd();
-
-            datastream.Close();
-            response.Close();
-
-            return responseFromServer;
+            catch(Exception ex)
+            {
+                return null;
+            }
         }
 
         private void LoadContent(string content)
@@ -81,8 +88,10 @@ namespace TinderEndpoint
         {
 
             string content = Get();
+            T obj = default(T);
 
-            T obj = JsonConvert.DeserializeObject<T>(content);
+            if (content != null) 
+                obj = JsonConvert.DeserializeObject<T>(content);
 
             return obj;
         }
@@ -109,7 +118,10 @@ namespace TinderEndpoint
         {
             string response = Post(content);
 
-            T obj = JsonConvert.DeserializeObject<T>(response);
+            T obj = default(T);
+
+            if (content != null)
+                obj = JsonConvert.DeserializeObject<T>(response);
 
             return obj;
         }
@@ -126,7 +138,10 @@ namespace TinderEndpoint
 
             string content = Delete();
 
-            T obj = JsonConvert.DeserializeObject<T>(content);
+            T obj = default(T);
+
+            if (content != null)
+                obj = JsonConvert.DeserializeObject<T>(content);
 
             return obj;
         }
@@ -148,8 +163,10 @@ namespace TinderEndpoint
 
             string response = Put(obj);
 
-            T objResponse = JsonConvert.DeserializeObject<T>(response);
+            T objResponse = default(T);
 
+            if (response != null)
+                objResponse = JsonConvert.DeserializeObject<T>(response);
             return objResponse;
         }
 

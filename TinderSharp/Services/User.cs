@@ -19,15 +19,11 @@ namespace ExtensionMethods
 
 namespace TinderSharp.Services
 {
-
-
-
     public class User
     {
         public static RecommendedMatches GetMatchRecommendations(Guid token)
         {
             var response = new RestMethods(TinderAPI.MatchRecommendations, token).Get<RecommendedMatches>();
-
 
             return response;
         }
@@ -60,16 +56,17 @@ namespace TinderSharp.Services
             return response.Data;
         }
 
-        // Todo lo que esta abajo de esto no fue probado.
 
-        public static void GetUpdates(Guid token, DateTime initialDate = default(DateTime))
+        public static Update GetUpdates(Guid token, DateTime initialDate = default(DateTime))
         {
             LastActivityDate obj = new LastActivityDate()
             {
                 last_activity_date = (initialDate != default(DateTime)) ? initialDate.ToTinderString() : ""
             };
 
-            var response = new RestMethods(TinderAPI.Updates, token).Post(obj);
+            var response = new RestMethods(TinderAPI.Updates, token).Post<Update>(obj);
+
+            return response;
         }
 
         public static bool Like(Guid token,string idToLike)

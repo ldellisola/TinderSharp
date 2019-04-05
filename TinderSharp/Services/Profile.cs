@@ -9,7 +9,7 @@ namespace TinderSharp.Services
     public class Profile
     {
 
-        public static TinderProfile GetProfile(Guid token)
+        public static TinderProfile GetOwnProfile(Guid token)
         {
             var response = new RestMethods(TinderAPI.Profile,token).Get<TinderProfile>();
 

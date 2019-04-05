@@ -12,25 +12,11 @@ namespace TinderSharp.Models.User
     }
     public partial class School
     {
-        public bool Displayed { get; set; }
-        public string MetadataId { get; set; }
-        public string Name { get; set; }
+        public bool displayed { get; set; }
+        public string metadata_id { get; set; }
+        public string name { get; set; }
     }
 
-    public partial class Algo
-    {
-        public double WidthPct { get; set; }
-        public double XOffsetPct { get; set; }
-        public double HeightPct { get; set; }
-        public double YOffsetPct { get; set; }
-    }
-
-    public partial class ProcessedFile
-    {
-        public Uri Url { get; set; }
-        public long Height { get; set; }
-        public long Width { get; set; }
-    }
 
     public partial class Photo
     {
@@ -43,13 +29,7 @@ namespace TinderSharp.Models.User
         public CropInfo crop_info { get; set; }
     }
 
-    public partial class CropInfo
-    {
-        public Algo User { get; set; }
-        public Algo Algo { get; set; }
-        public bool ProcessedByBullseye { get; set; }
-        public bool UserCustomized { get; set; }
-    }
+
 
     public partial class Job
     {
