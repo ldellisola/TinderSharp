@@ -15,7 +15,7 @@ A .Net Standard 2.0 wrapper for the Tinder API
 <table>
    <thead>
       <tr>
-		 <th>State</th>
+	 <th>State</th>
          <th>Endpoint</th>
          <th>Purpose</th>
          <th>Data?</th>
@@ -24,12 +24,12 @@ A .Net Standard 2.0 wrapper for the Tinder API
    </thead>
    <tbody>
       <tr>
-	  		 <td>Working</td
+	      <td>Working</td>
          <td>/auth</td>
          <td>For authenticating</td>
          <td>{'facebook_token': INSERT_HERE, 'facebook_id': INSERT_HERE}</td>
          <td>POST</td>
->
+
       </tr>
 	  <tr>
 	  		 <td>Implemented but not tested</td>
