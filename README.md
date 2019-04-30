@@ -1,6 +1,9 @@
 # TinderSharp
 A .Net Standard 2.0 wrapper for the Tinder API
 
+# Warning
+The API changed while I was making this wrapper and I decided not to keep working on it until the new API was discovered. If this happens the only change necessary would be to modify the endpoint and create a the new classes if some responses changed.
+
 ### License
 
 * TinderSharp is under the Unlicense.
