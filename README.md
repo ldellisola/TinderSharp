@@ -1,324 +1,60 @@
 # TinderSharp
 A .Net Standard 2.0 wrapper for the Tinder API
 
-# Warning
-The API changed while I was making this wrapper and I decided not to keep working on it until the new API was discovered. If this happens the only change necessary would be to modify the endpoint and create a the new classes if some responses changed.
-
-### License
+## License
 
 * TinderSharp is under the Unlicense.
 * We are also using Newtonsoft.Json, which has an MIT license.
 
-### Contributions
+## Contributions
 
-* To develop this wrapper, I got the endpoints from https://github.com/fbessez/Tinder and https://gist.github.com/rtt/10403467
+* To develop this wrapper, initially I got the endpoints from https://github.com/fbessez/Tinder and https://gist.github.com/rtt/10403467
 
-### Features
+## Features
 
-<table>
-   <thead>
-      <tr>
-	 <th>State</th>
-         <th>Endpoint</th>
-         <th>Purpose</th>
-         <th>Data?</th>
-         <th>Method</th>
-      </tr>
-   </thead>
-   <tbody>
-      <tr>
-	  <td>Working</td>
-         <td>/auth</td>
-         <td>For authenticating</td>
-         <td>{'facebook_token': INSERT_HERE, 'facebook_id': INSERT_HERE}</td>
-         <td>POST</td>
-      </tr>
-	  <tr>
-	  	<td>Implemented but not tested</td>
-		<td>/auth/login/accountkit</td>
-		<td>For SMS authentication (two-factor)</td>
-		<td>{'token': INSERT_HERE, 'id': INSERT_HERE, 'client_version':'9.0.1'}</td>
-		<td>POST</td>
-	  </tr>
-      <tr>
-	  <td>Working</td>
-         <td>/user/recs</td>
-         <td>Get match recommendations</td>
-         <td>{}</td>
-         <td>GET</td>
-      </tr>
-      <tr>
-	  <td>Implemented but not tested</td>
-         <td>/user/matches/_id</td>
-         <td>Send Message to that id</td>
-         <td>{"message": TEXT GOES HERE}</td>
-         <td>POST</td>
-      </tr>
-      <tr>
-	  <td>Implemented but not tested</td>
-         <td>/user/matches/match_id</td>
-         <td>Unmatch person</td>
-         <td>{}</td>
-         <td>DELETE</td>
-      </tr>
-      <tr>
-	 <td>Not Implemented</td>
-       	 <td>/user/_id</td>
-         <td>Get a user's profile data</td>
-         <td>{}</td>
-         <td>GET</td>
-      </tr>
-      <tr>		 
-	 <td>Not Impemented</td>
-         <td>/user/ping</td>
-         <td>Change your location</td>
-         <td>{"lat": lat, "lon": lon}</td>
-         <td>POST</td>
-      </tr>
-      <tr>
-	  <td>Working</td>
-         <td>/updates</td>
-         <td>Get all updates since the given date -- inserting "" will give you all updates since creating a Tinder account (i.e. matches, messages sent, etc.)</td>
-         <td>{"last_activity_date": ""} Input a timestamp: '2017-03-25T20:58:00.404Z' for updates since that time.</td>
-         <td>POST</td> 
-      </tr>
-      <tr>
-	  <td>Working</td>
-         <td>/profile</td>
-         <td>Get your own profile data</td>
-         <td>{}</td>
-         <td>GET</td> 
-      </tr>
-      <tr>
-	  <td>Working</td>
-         <td>/profile</td>
-         <td>Change your search preferences</td>
-         <td>{"age_filter_min": age_filter_min, "gender_filter": gender_filter, "gender": gender, "age_filter_max": age_filter_max, "distance_filter": distance_filter}</td>
-         <td>POST</td>
-      </tr>
-      <tr>
-	  <td>Implemented but not tested</td>
-         <td>/profile</td>
-         <td>(Tinder Plus Only) hide/show age</td>
-         <td>{"hide_age":boolean}</td>
-         <td>POST</td>
-      </tr>
-      <tr>
-	  <td>Implemented but not tested</td>
-         <td>/profile</td>
-         <td>(Tinder Plus Only) hide/show distance</td>
-         <td>{"hide_distance":boolean}</td>
-         <td>POST</td>
-      </tr>
-      <tr>
-	  <td>Implemented but not tested</td>
-         <td>/profile</td>
-         <td>(Tinder Plus Only) hide/show ads</td>
-         <td>{"hide_ads":boolean}</td>
-         <td>POST</td>
-      </tr>
-      <tr>
-	 <td>Not Implemented</td>
-         <td>/profile</td>
-         <td>(Tinder Plus Only) Set Tinder Blend options to "Recent Activity": Shows more recently active users</td>
-         <td>{"blend":"recency"}</td>
-         <td>POST</td>
-      </tr>
-      <tr>
-	  <td>Not Implemented</td>
-         <td>/profile</td>
-         <td>(Tinder Plus Only) Set Tinder Blend options to "Optimal": Scientifically proven to get you more matches</td>
-         <td>{"blend":"optimal"}</td>
-         <td>POST</td>
-      </tr>
-      <tr>
-	  <td>Not implemented</td>
-         <td>/profile</td>
-         <td>(Tinder Plus Only) Set discovery settings to only people who already liked you</td>
-         <td>{"discoverable_party":"liked"}</td>
-         <td>POST</td>
-      </tr>
-      <tr>
-	  <td>Not implemented</td>
-         <td>/passport/user/travel</td>
-         <td>(Tinder Plus Only) Travel to coordinate</td>
-         <td>{"lat":lat,"lon":lon}</td>
-         <td>POST</td>
-      </tr>
-      <tr>
-	   <td>Not implemented</td>
-         <td>/instagram/authorize</td>
-         <td>Auth Instagram</td>
-         <td>{}</td>
-         <td>GET</td>
-      </tr>
-      <tr>
-	  <td>Not implemented</td>
-         <td>/v2/profile/spotify/</td>
-         <td>Get Spotify settings</td>
-         <td>{}</td>
-         <td>GET</td>
-      </tr>
-      <tr>
-	  <td>Not implemented</td>
-         <td>/v2/profile/spotify/theme</td>
-         <td>Set Spotify song</td>
-         <td>{"id":song_id}</td>
-         <td>PUT</td>
-      </tr>
-      <tr>
-	  <td>Working</td>
-         <td>/profile/username</td>
-         <td>Change your webprofile username</td>
-         <td>{"username": username}</td>
-         <td>PUT</td>
-      </tr>
-      <tr>
-	  <td>Working</td>
-         <td>/profile/username</td>
-         <td>Reset your webprofile username</td>
-         <td>{}</td>
-         <td>DELETE</td>
-      </tr>
-      <tr>
-	  <td>Working</td>
-         <td>/meta</td>
-         <td>Get your own meta data (swipes left, people seen, etc..)</td>
-         <td>{}</td>
-         <td>GET</td>
-      </tr>
-      <tr>
-	  		 <td>Working</td>
-         <td>/v2/meta</td>
-         <td>Get your own meta data from V2 API (extra data like "top_picks" info)</td>
-         <td>{}</td>
-         <td>GET</td>
-      </tr>
-      <tr>
-	  		 <td>Not implemented</td>
-         <td>/report/_id</td>
-         <td>Report someone --&gt; There are only a few accepted causes... (see tinder_api.py for options)</td>
-         <td>{"cause": cause, "text": explanation}</td>
-         <td>POST</td>
-      </tr>
-      <tr>
-	  		 <td>Implemented but not tested</td>
-         <td>/like/_id</td>
-         <td>Like someone a.k.a swipe right</td>
-         <td>{}</td>
-         <td>GET</td>
-      </tr>
-      <tr>
-	  		 <td>Implemented but not tested</td>
-         <td>/pass/_id</td>
-         <td>Pass on someone a.k.a swipe left</td>
-         <td>{}</td>
-         <td>GET</td>
-      </tr>
-      <tr>
-	  		 <td>Implemented but not tested</td>
-         <td>/like/_id/super</td>
-         <td>~Super Like~ someone a.k.a swipe up</td>
-         <td>{}</td>
-         <td>POST</td>
-      </tr>
-      <tr>
-	  		 <td>Not implemented</td>
-         <td>/matches/{match id}</td>
-         <td>Get a match from its id </td>
-         <td>{}</td>
-         <td>GET</td>
-      </tr>
-      <tr>
-	  		 <td>Not implemented</td>
-         <td>/message/{message id}</td>
-         <td>Get a message from its id </td>
-         <td>{}</td>
-         <td>GET</td>
-      </tr>
-      <tr>
-	  		 <td>Not implemented</td>
-         <td>/passport/user/reset</td>
-         <td>Reset your location to your real location</td>
-         <td>{}</td>
-         <td>POST</td>
-      </tr>
-      <tr>
-	  		 <td>Not implemented</td>
-         <td>/passport/user/travel</td>
-         <td>Change your swiping location</td>
-         <td>{"lat": latitutde, "lon": longitude}</td>
-         <td>POST</td>
-      </tr>
-      <tr>
-	  		 <td>Not implemented</td>
-         <td>/user/{user_id}/common_connections</td>
-         <td>Get common connection of a user</td>
-         <td>{}</td>
-         <td>GET</td>
-      </tr>
-      <tr>
-	  		 <td>Not implemented</td>
-         <td>/profile/job</td>
-         <td>Set job</td>
-         <td>{"company":{"id":"17767109610","name":"University of Miami","displayed":true},"title":{"id":"106123522751852","name":"Research Assistant","displayed":true}}</td>
-         <td>PUT</td>
-      </tr>
-      <tr>
-	  		 <td>Not implemented</td>
-         <td>/profile/job</td>
-         <td>Delete job</td>
-         <td>{}</td>
-         <td>DELETE</td>
-      </tr>
-      <tr>
-	  		 <td>Not implemented</td>
-         <td>/profile/school</td>
-         <td>Set school(s)</td>
-         <td>{"schools":[{"id":school_id}]}</td>
-         <td>PUT</td>
-      </tr>
-      <tr>
-	  		 <td>Not implemented</td>
-         <td>/profile/school</td>
-         <td>Reset school</td>
-         <td>{}</td>
-         <td>DELETE</td>
-      </tr>
-      <tr>
-	  		 <td>Not implemented</td>
-         <td>/message/{message_id}/like</td>
-         <td>Like a message</td>
-         <td>{}</td>
-         <td>POST</td>
-      </tr>
-      <tr>
-	  		 <td>Not implemented</td>
-         <td>/v2/fast-match/preview</td>
-         <td>Get the non blurred thumbnail image shown in the messages-window (the one showing the likes you received)</td>
-         <td>{}</td>
-         <td>GET</td>
-      </tr>
-      <tr>
-	  		 <td>Not implemented</td>
-         <td>/v2/fast-match/count</td>
-         <td>Get the number of likes you received</td>
-         <td>{}</td>
-         <td>GET</td>
-      </tr>
-      <tr>
-	  		 <td>Not implemented</td>
-         <td>/giphy/trending?limit={limit}</td>
-         <td>Get the trending gifs (tinder uses giphy) accessible in chat</td>
-         <td>{}</td>
-         <td>GET</td>
-      </tr>
-      <tr>
-	  		 <td>Not implemented</td>
-         <td>/giphy/search?limit={limit}&query={query}</td>
-         <td>Get gifs (tinder uses giphy) based on a search accessible in chat</td>
-         <td>{}</td>
-         <td>GET</td>
-      </tr>
-   </tbody>
-</table>
+As of 28th of June 2020, most of the free functionalities of Tinder are working with this wrapper, with the notable exception of Authentication. 
+
+### Authentication
+
+As of now, If you want to use the API you have to [login](https://www.tinder.com) on your browser and look at any of the incoming network request. In any request coming from `api.gotinder.com` you have to look for the `X-Auth-Token`  header, that value will be the token you need to use in order to authenticate all your API calls.
+
+From my initial testing, I can say that this token lasts a long time time (more than 10 hours). I will try to enable Google OAuth, SMS Login or Facebook Authentication in the next days.
+
+### Account
+
+This wrapper allows you to reset or change your username, get updates on new messages or new matches and retrieve the information of your profile. For now you can only get the likes that you have left, account data and user data. 
+
+I have not implemented other modules yet such as:
+
+- Boost
+- contact_cards
+- plus_control
+- travel
+- tinderUniversity
+- super_likes
+- products
+- instagram
+- purchases
+- EmailSettings
+- read_recipts
+- swipe_note
+- tutorials
+
+The reason behind this is that most of those modules are oriented to their app, I don't understand yet what they do or they are not free and I can't test them.
+
+### Matches
+
+Matches are fully working, you can get a list of match recomendations and like, pass or superlike the recomendation. You can also unmatch them.
+
+I have not still implemented the endpoints that retrieve current matches, but that shouldn't be a problem.
+
+### Messages
+
+Messages are fully implemented and you can send written messages, gifs (from giphy) and songs from spotify. You can also retrieve a list of the messages from each match.
+
+### Other changes
+
+I still need to comment and clean a lot of the code. There are a lots of classes that were autogenerated and should be removed.
+
+
+

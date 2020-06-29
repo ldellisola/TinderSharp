@@ -165,20 +165,10 @@ namespace TinderSharp.Models.User
     public partial class Rating
     {
         public long likes_remaining { get; set; }
-        public SuperLikes super_likes { get; set; }
+        // public SuperLikes super_likes { get; set; }
     }
 
-    public partial class SuperLikes
-    {
-        public long remaining { get; set; }
-        public long alc_remaining { get; set; }
-        public long new_alc_remaining { get; set; }
-        public long allotment { get; set; }
-        public long superlike_refresh_amount { get; set; }
-        public long superlike_refresh_interval { get; set; }
-        public string superlike_refresh_rnterval_unit { get; set; }
-        public object resets_at { get; set; }
-    }
+    
 
     public partial class Travel
     {

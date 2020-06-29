@@ -1,4 +1,6 @@
 ﻿using System;
+using TinderSharp;
+using TinderSharp.Services;
 
 namespace SandBox
 {
@@ -6,19 +8,10 @@ namespace SandBox
     {
         static void Main(string[] args)
         {
-            string tok = "EAAGm0PX4ZCpsBAJFwyGrVfczceXoGZA7QemKnCZCWOg9s8z54FIhBzmMEtwWEMowg518uzHIaBMxluBaxod70kVlvpL3LTJ5pTvaanNKZAk0qSuMnCdX8CIQRJK14qtTDbuph8NZAmX61ZBwTdzAUMQu8d0S7rGGnQk6bFWBwO8tcaEXV55QhZCs5lee6FEJCwZD";
+            var client = new TinderClient("82fd8255-5e23-4696-a51f-7023a2c3ac11");
 
-            var usr = TinderSharp.Services.Authenticator.Authenticate(tok, 1605746836);
-
-
-            var up = TinderSharp.Services.User.GetUpdates(usr.Token,new DateTime(2018,12,30));
-
-
-
-
-            int a = 0;
-            a++;
-
+            // var resp = client.GetProfile();
+            var resp2 = client.GetMetadata();
         }
     }
 }

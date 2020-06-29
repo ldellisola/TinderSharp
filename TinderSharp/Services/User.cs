@@ -1,10 +1,7 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
+using ExtensionMethods;
 using TinderEndpoint;
 using TinderSharp.Models.User;
-using ExtensionMethods;
 
 namespace ExtensionMethods
 {
@@ -19,104 +16,43 @@ namespace ExtensionMethods
 
 namespace TinderSharp.Services
 {
-    public class User
+    public static class User
     {
-        public static RecommendedMatches GetMatchRecommendations(Guid token)
+        public static MetadataV2 GetMetadata(this TinderClient tinderClient)
         {
-            var response = new RestMethods(TinderAPI.MatchRecommendations, token).Get<RecommendedMatches>();
+            var response = new RestMethods(TinderAPI.MetadataV2, tinderClient.XAuthToken).Get<MetadataV2>();
 
             return response;
         }
 
-        public static bool ResetUsername(Guid token)
+        public static TinderSharp.Models.User.Profile GetProfile(this TinderClient tinderClient)
         {
-            var response = new RestMethods(TinderAPI.Username, token).Delete();
-
-            return response == "";
-        }
-
-        public static bool ChangeUsername(Guid token, string newUsername)
-        {
-            var response = new RestMethods(TinderAPI.Username, token).Put( new Username() { username = newUsername });
-            return response == "";
-
-        }
-
-        public static Metadata GetMetadata(Guid token)
-        {
-            var response = new RestMethods(TinderAPI.Metadata, token).Get<Metadata>();
+            var response = new RestMethods(TinderAPI.Profile,
+                tinderClient.XAuthToken).Get<TinderSharp.Models.User.Profile>();
 
             return response;
         }
 
-        public static MetadataV2 GetMetadataV2(Guid token)
-        {
-            var response = new RestMethods(TinderAPI.MetadataV2, token).Get<MetadataV2Container>();
-
-            return response.Data;
+        public static void ChangeUsername(this TinderClient client, string newUsername)
+        { 
+            new RestMethods(TinderAPI.Username, client.XAuthToken).Put( new { username = newUsername });
         }
-
-
-        public static Update GetUpdates(Guid token, DateTime initialDate = default(DateTime))
+        public static void ResetUsername(this TinderClient client)
         {
-            LastActivityDate obj = new LastActivityDate()
+            new RestMethods(TinderAPI.Username, client.XAuthToken).Delete();
+        }
+        
+        public static Update GetUpdates(this TinderClient client, DateTime updatedFrom = default(DateTime))
+        {
+            var obj = new
             {
-                last_activity_date = (initialDate != default(DateTime)) ? initialDate.ToTinderString() : ""
+                nudge = true,
+                last_activity_date = updatedFrom.ToTinderString()
             };
-
-            var response = new RestMethods(TinderAPI.Updates, token).Post<Update>(obj);
-
+            var response = new RestMethods(TinderAPI.Updates, client.XAuthToken).Post<Update>(obj);
+        
             return response;
         }
 
-        public static bool Like(Guid token,string idToLike)
-        {
-            var response = new RestMethods(TinderAPI.Like.Replace("{_id}", idToLike), token).Get();
-
-            return true;
-        }
-        public static bool Pass(Guid token,string idToPass)
-        {
-            var response = new RestMethods(TinderAPI.Pass.Replace("{_id}", idToPass), token).Get();
-
-            return true;
-        }
-        public static bool SuperLike(Guid token,string idToSuperLike)
-        {
-            var response = new RestMethods(TinderAPI.SuperLike.Replace("{_id}", idToSuperLike),  token).Post(string.Empty);
-
-            return true;
-        }
-
-        //public static void ChangeLocation(Guid token,double Lat, double lon)
-        //{
-
-        //}
-
-
-
-        public static void MessageMatch(Guid token,string otherUserID, string msg)
-        {
-            Message content = new Message() { message = msg };
-            var response = new RestMethods(TinderAPI.Message.Replace("{id}", otherUserID), token).Post( content);
-
-            int a = 0;
-            a++;
-
-        }
-
-        // TO BE TESTED
-        public static void MessageMatch(Guid token,string otherUserID, Message msg)
-        {
-
-            var response = new RestMethods(TinderAPI.Message.Replace("{id}", otherUserID), token).Post( msg);
-
-        }
-
-        public static void Unmatch(Guid token,string matchID)
-        {
-            var response = new RestMethods(TinderAPI.Message.Replace("{match_id}", matchID), token).Delete();
-
-        }
     }
 }

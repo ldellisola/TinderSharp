@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TinderSharp.Models.Images;
 
 namespace TinderSharp.Models.User
 {
@@ -54,7 +55,7 @@ namespace TinderSharp.Models.User
         public List<string> Groups { get; set; }
         public long gender { get; set; }
         public long gender_filter { get; set; }
-        public List<Interest> Interests { get; set; }
+        public List<Profile.UserData.Interest> Interests { get; set; }
         public string Name { get; set; }
         public DateTimeOffset ping_time { get; set; }
         public bool Discoverable { get; set; }
@@ -64,13 +65,7 @@ namespace TinderSharp.Models.User
         public string Username { get; set; }
     }
 
-    public partial class Interest
-    {
-        public string Id { get; set; }
-        public string created_time { get; set; }
-        public string Name { get; set; }
-    }
-
+    
     public partial class Versions
     {
         public string active_text { get; set; }

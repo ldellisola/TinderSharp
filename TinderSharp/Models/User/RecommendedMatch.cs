@@ -1,13 +1,90 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Newtonsoft.Json;
+using TinderSharp.Json;
+using TinderSharp.Models.Images;
+using TinderSharp.Models.Music;
 
 namespace TinderSharp.Models.User
 {
-
-    public partial class RecommendedMatches
+    public class MatchResponse
     {
-        public long Status { get; set; }
+        [JsonProperty("likes_remaining")] public int LikesRemaining { get; set; }
+
+        [JsonConverter(typeof(MatchResponseConverter))]
+        [JsonProperty("match")] 
+        public Match IsMatch { get; set; }
+
+        public class Match
+        {
+
+            [JsonProperty("seen")]
+            public Seen seen { get; set; }
+
+            [JsonProperty("_id")]
+            public string Id { get; set; }
+
+            [JsonProperty("closed")]
+            public bool closed { get; set; }
+
+            [JsonProperty("common_friend_count")]
+            public int common_friend_count { get; set; }
+
+            [JsonProperty("common_like_count")]
+            public int common_like_count { get; set; }
+
+            [JsonProperty("created_date")]
+            public DateTime created_date { get; set; }
+
+            [JsonProperty("dead")]
+            public bool dead { get; set; }
+
+            [JsonProperty("last_activity_date")]
+            public DateTime last_activity_date { get; set; }
+
+            [JsonProperty("message_count")]
+            public int message_count { get; set; }
+
+            [JsonProperty("messages")]
+            public IList<Message> messages { get; set; }
+
+            [JsonProperty("muted")]
+            public bool muted { get; set; }
+
+            [JsonProperty("participants")]
+            public IList<string> participants { get; set; }
+
+            [JsonProperty("pending")]
+            public bool pending { get; set; }
+
+            [JsonProperty("is_super_like")]
+            public bool is_super_like { get; set; }
+
+            [JsonProperty("is_boost_match")]
+            public bool is_boost_match { get; set; }
+
+            [JsonProperty("is_fast_match")]
+            public bool is_fast_match { get; set; }
+
+            [JsonProperty("person")]
+            public Person person { get; set; }
+
+            [JsonProperty("following")]
+            public bool following { get; set; }
+
+            [JsonProperty("following_moments")]
+            public bool following_moments { get; set; }
+
+            [JsonProperty("super_liker")]
+            public string super_liker { get; set; }
+        }
+
+    }
+
+
+    public class RecommendedMatches
+    {
         public List<RecommendedMatch> Results { get; set; }
     }
     public partial class RecommendedMatch
@@ -34,7 +111,7 @@ namespace TinderSharp.Models.User
         public long gender { get; set; }
         public long s_number { get; set; }
         public List<SpotifyTopArtist> SpotifyTopArtists { get; set; }
-        public Track SpotifyThemeTrack { get; set; }
+        public Song SpotifyThemeTrack { get; set; }
         public bool? IsTraveling { get; set; }
     }
 
@@ -69,45 +146,20 @@ namespace TinderSharp.Models.User
     public partial class ResultPhoto
     {
         public Guid id { get; set; }
-        public CropInfo crop_info { get; set; }
+        public Photo.CropInfo crop_info { get; set; }
         public Uri url { get; set; }
-        public List<ProcessedFile> processedFiles { get; set; }
+        public List<Photo.ProcessedFile> processedFiles { get; set; }
         public string fileName { get; set; }
         public string extension { get; set; }
         public bool? main { get; set; }
-        public List<ProcessedFile> processedVideos { get; set; }
-    }
-
-
-
-    public partial class Track
-    {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public Uri preview_url { get; set; }
-        public string Uri { get; set; }
-        public Album Album { get; set; }
-        public List<Artist> Artists { get; set; }
-    }
-
-    public partial class Album
-    {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public List<ProcessedFile> Images { get; set; }
-    }
-
-    public partial class Artist
-    {
-        public string Id { get; set; }
-        public string Name { get; set; }
+        public List<Photo.ProcessedFile> processedVideos { get; set; }
     }
 
     public partial class SpotifyTopArtist
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public Track top_track { get; set; }
+        public Song top_track { get; set; }
         public bool Selected { get; set; }
     }
 
@@ -117,12 +169,4 @@ namespace TinderSharp.Models.User
         public string Type { get; set; }
     }
 
-    //public enum BirthDateInfo { FuzzyBirthdateActiveNotDisplayingRealBirthDate };
-
-
-    ////public enum Username { Tinder };
-
-    //public enum Extension { Jpg };
-
-    //public enum TypeEnum { artists, instagram, job, school, position, jobPosition };
 }

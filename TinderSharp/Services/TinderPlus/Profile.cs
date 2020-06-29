@@ -7,39 +7,39 @@ namespace TinderSharp.Services.TinderPlus
 {
     public class Profile
     {
-        public static TinderProfile HideAge(Guid token, bool hide)
-        {
-            Models.User.TinderPlus.HideAge showAge = new HideAge()
-            {
-                hide_age = hide
-            };
-            TinderProfile response = new RestMethods(TinderAPI.Profile, token).Post<TinderProfile>(showAge);
-
-            return response;
-        }
-
-        public static TinderProfile HideDistance(Guid token, bool hide)
-        {
-            HideDistance hideDistace = new HideDistance()
-            {
-                hide_distance = hide
-            };
-
-            TinderProfile response = new RestMethods(TinderAPI.Profile, token).Post<TinderProfile>(hideDistace);
-
-            return response;
-        }
-
-        public static TinderProfile HideAds(Guid token, bool hide)
-        {
-            HideAds obj = new HideAds()
-            {
-                hide_ads = hide
-            };
-
-            TinderProfile response = new RestMethods(TinderAPI.Profile, token).Post<TinderProfile>( obj);
-
-            return response;
-        }
+        // public static Profile HideAge(Guid token, bool hide)
+        // {
+        //     Models.User.TinderPlus.HideAge showAge = new HideAge()
+        //     {
+        //         hide_age = hide
+        //     };
+        //     Profile response = new RestMethods(TinderAPI.Profile, token).Post<Profile>(showAge);
+        //
+        //     return response;
+        // }
+        //
+        // public static Profile HideDistance(Guid token, bool hide)
+        // {
+        //     HideDistance hideDistace = new HideDistance()
+        //     {
+        //         hide_distance = hide
+        //     };
+        //
+        //     Profile response = new RestMethods(TinderAPI.Profile, token).Post<Profile>(hideDistace);
+        //
+        //     return response;
+        // }
+        //
+        // public static Profile HideAds(Guid token, bool hide)
+        // {
+        //     HideAds obj = new HideAds()
+        //     {
+        //         hide_ads = hide
+        //     };
+        //
+        //     Profile response = new RestMethods(TinderAPI.Profile, token).Post<Profile>( obj);
+        //
+        //     return response;
+        // }
     }
 }

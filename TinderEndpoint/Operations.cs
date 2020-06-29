@@ -6,25 +6,35 @@ using System.Text;
 
 namespace TinderEndpoint
 {
-    public class TinderAPI
+    public static class TinderAPI
     {
         public const string baseURL = @"https://api.gotinder.com";
-        public const string Authenticate = @"/auth";
-        public const string Authenticate2FA = @"/auth/login/accountkit";
+        public const string Authenticate = @"/v3/auth/login?locale=en";
 
-        public const string Profile = @"/profile";
 
-        public const string MatchRecommendations = @"/user/recs";
-        public const string Message = @"/user/matches/{_id}";
-        public const string Unmatch = @"/user/matches/{match_id}";
+        public const string MesssagedMatches = @"/v2/matches?count=100";
+        public const string UnesssagedMatches = @"/v2/matches?count=100&message=0";
+
+
+
+
+        // funciona
+
         public const string Updates = @"/updates";
         public const string Username = @"/profile/username";
 
+        public const string MatchRecommendations = @"/v2/recs/core";
+        public const string Message = @"/user/matches/{MatchId}";
+        public const string SeenMessage = @"/v2/seen/{MatchId}/{MessageId}";
+
+
+        public const string Profile = @"/v2/profile?include=likes,user,account";
         public const string Like = @"/like/{_id}";
         public const string Pass = @"/pass/{_id}";
         public const string SuperLike = @"/like/{_id}/Super";
+        public const string Unmatch = @"/user/matches/{match_id}";
 
-        public const string Metadata = @"/meta";
+
         public const string MetadataV2 = @"/v2/meta";
 
 
@@ -71,29 +81,29 @@ namespace TinderEndpoint
             request.ContentLength = RequestContent.Length;
         }
 
-        public RestMethods(string path,Guid authToken = default(Guid))
+        public RestMethods(string path,string authToken = "")
         {
 
             request = (HttpWebRequest)WebRequest.Create(TinderAPI.baseURL + path);
             request.Headers.Add("Content-type", "application/json");
             request.Headers.Add("User-agent", "Tinder/7.5.3 (iPhone; iOS 10.3.2; Scale/2.00)");
 
-            if (authToken != Guid.Empty)
+            if (authToken != "")
                 request.Headers.Add("X-Auth-Token", authToken.ToString());
 
 
         }
+
         public T Get<T>()
             where T : new()
         {
-
             string content = Get();
-            T obj = default(T);
+            Wrapper<T> obj = new Wrapper<T>();
 
             if (content != null) 
-                obj = JsonConvert.DeserializeObject<T>(content);
+                obj = JsonConvert.DeserializeObject<Wrapper<T>>(content);
 
-            return obj;
+            return obj.data;
         }
         public string Get()
         {
@@ -103,17 +113,20 @@ namespace TinderEndpoint
             return MakeRequest();
 
         }
-        public string Post(object content)
+        public string Post(object content = null)
         {
-            string contentA = JsonConvert.SerializeObject(content);
+            if (content != null)
+            {
+                string contentA = JsonConvert.SerializeObject(content);
 
-            LoadContent(contentA);
-            
+                LoadContent(contentA);
+            }
+
             request.Method = "POST";
 
             return MakeRequest();
         }
-        public T Post<T>(object content)
+        public T Post<T>(object content = null)
             where T : new()
         {
             string response = Post(content);
@@ -170,6 +183,16 @@ namespace TinderEndpoint
             return objResponse;
         }
 
+        private class Wrapper <R>
+        {
+            public R data { get; set; }
+            public Metadata Meta { get; set; }
+
+            public class Metadata
+            {
+                public int Status { get; set; }
+            }
+        }
     }
 
 

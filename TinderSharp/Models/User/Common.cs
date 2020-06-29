@@ -18,39 +18,20 @@ namespace TinderSharp.Models.User
     }
 
 
-    public partial class Photo
-    {
-        public Guid Id { get; set; }
-        public Uri Url { get; set; }
-        public string FileName { get; set; }
-        public string Extension { get; set; }
-        public string FbId { get; set; }
-        public List<ProcessedFile> ProcessedFiles { get; set; }
-        public CropInfo crop_info { get; set; }
-    }
+    
 
 
 
     public partial class Job
     {
-        public Company Company { get; set; }
-        public Company Title { get; set; }
+        public HideableField HideableField { get; set; }
+        public HideableField Title { get; set; }
     }
 
-    public partial class Company
+    public class HideableField
     {
         public bool Displayed { get; set; }
         public string Name { get; set; }
-    }
-
-    public partial class LastActivityDate
-    {
-        public string last_activity_date { get; set; }
-    }
-
-    public partial class Username
-    {
-        public string username { get; set; }
     }
 
     public partial class SearchPreferences

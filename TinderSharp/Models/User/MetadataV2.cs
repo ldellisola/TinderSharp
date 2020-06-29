@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace TinderSharp.Models.User
 {
-    public partial class MetadataV2Container
+    public class MetadataV2Container
     {
         public MetadataV2 Data { get; set; }
     }
 
-    public partial class MetadataV2
+    public class MetadataV2
     {
         public ClientResources client_resources { get; set; }
         public Account Account { get; set; }
@@ -37,7 +35,7 @@ namespace TinderSharp.Models.User
         public Levers Levers { get; set; }
     }
 
-    public partial class Account
+    public class Account
     {
         public bool email_prompt_required { get; set; }
         public bool email_prompt_dismissible { get; set; }
@@ -48,26 +46,26 @@ namespace TinderSharp.Models.User
         public string web_desktop_matchlist_style { get; set; }
     }
 
-    public partial class BackgroundLocation
+    public class BackgroundLocation
     {
         public bool Enabled { get; set; }
     }
 
-    public partial class BoostV2 : Boost
+    public class BoostV2 : Boost
     {
         public bool enabled { get; set; }
         public long duration { get; set; }
         public long intro_multiplier { get; set; }
     }
 
-    public partial class ClientResources
+    public class ClientResources
     {
         public RateCard rate_card { get; set; }
         public List<string> plus_screen { get; set; }
     }
 
 
-    public partial class FastMatch
+    public class FastMatch
     {
         public bool enabled { get; set; }
         public long preview_minimum_time { get; set; }
@@ -81,22 +79,22 @@ namespace TinderSharp.Models.User
         public bool use_teaser_endpoint { get; set; }
     }
 
-    public partial class Feedback
+    public class Feedback
     {
         public bool rate_app { get; set; }
     }
 
-    public partial class Levers
+    public class Levers
     {
     }
 
-    public partial class Merchandising
+    public class Merchandising
     {
         public bool gold_v1_enabled { get; set; }
         public bool gold_v2_enabled { get; set; }
     }
 
-    public partial class Paywall
+    public class Paywall
     {
         public bool full_price { get; set; }
         public bool E1 { get; set; }
@@ -106,7 +104,7 @@ namespace TinderSharp.Models.User
         public long E4 { get; set; }
     }
 
-    public partial class ProfileMetadataV2 :ProfileMetadata
+    public class ProfileMetadataV2 :ProfileMetadata
     {
         public bool can_edit_jobs { get; set; }
         public bool can_edit_schools { get; set; }
@@ -116,32 +114,32 @@ namespace TinderSharp.Models.User
 
     }
 
-    public partial class Recs
+    public class Recs
     {
         public bool card_replay { get; set; }
     }
 
-    public partial class Select
+    public class Select
     {
         public bool enabled { get; set; }
         public bool recs_enabled { get; set; }
         public bool invited { get; set; }
     }
 
-    public partial class SuperLike
+    public class SuperLike
     {
         public bool enabled { get; set; }
         public long alc_mode { get; set; }
     }
 
 
-    public partial class TinderPlusMetadataV2
+    public class TinderPlusMetadataV2
     {
         public bool enabled { get; set; }
         public bool discount { get; set; }
     }
 
-    public partial class TopPicks
+    public class TopPicks
     {
         public bool Enabled { get; set; }
         public bool local_daily_enabled { get; set; }
@@ -154,7 +152,7 @@ namespace TinderSharp.Models.User
         public bool post_swipe_paywall { get; set; }
     }
 
-    public partial class LocalDailyOffsets
+    public class LocalDailyOffsets
     {
         public long Offset0 { get; set; }
         public long Offset1 { get; set; }
