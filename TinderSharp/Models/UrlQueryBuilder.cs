@@ -21,5 +21,11 @@ namespace TinderSharp.Models
         {
             return _query;
         }
+
+        public UrlQueryBuilder AddLocale(string locale)
+        {
+            _query.Add("locale", locale);
+            return this;
+        }
     }
 }

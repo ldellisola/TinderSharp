@@ -1,6 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using TinderSharp.Models.Matches;
 using TinderSharp.Models.User;
 
 namespace TinderSharp.Json

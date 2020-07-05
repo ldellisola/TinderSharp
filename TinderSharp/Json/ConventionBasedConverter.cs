@@ -9,45 +9,50 @@ using TinderSharp.Models.User;
 
 namespace TinderSharp.Json
 {
-    internal class ConventionBasedConverter : JsonConverter
+    internal class ConventionBasedConverter<T> : JsonConverter where T : new()
     {
         public override bool CanConvert(Type objectType)
         {
-            return typeof(Profile).IsAssignableFrom(objectType);
+            return typeof(T).IsAssignableFrom(objectType);
         }
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
+            JsonSerializer serializer)
         {
-            var daat = JObject.Load(reader);
-            var ret = new Profile();
+            var data = JObject.Load(reader);
+            var ret = new T();
 
-            foreach (var prop in ret.GetType().GetProperties(BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Instance))
+            foreach (var prop in ret.GetType()
+                .GetProperties(BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Instance))
             {
                 var attr = prop.GetCustomAttributes(false).FirstOrDefault();
                 if (attr != null)
                 {
-                    var propName = ((JsonPropertyAttribute)attr).PropertyName;
+                    var propName = ((JsonPropertyAttribute) attr).PropertyName;
                     if (!string.IsNullOrWhiteSpace(propName))
                     {
-                        // var conventions = propName.Split('/');
-                        // if (conventions.Length == 3)
-                        // {
-                        //     ret.Type = (string)((JValue)daat[conventions[0]][conventions[1]][conventions[2]]).Value;
-                        // }
-                        //
-                        // ret.Id = Convert.ToInt32(((JValue)daat[propName]).Value);
-                    }  
-                    
-                }
-            }
+                        var conventions = propName.Split('.');
 
+                        var token = data[conventions[0]];
+
+                        for (int i = 1; i < conventions.Length; i++)
+                        {
+                            token = token[conventions[i]];
+                        }
+
+                        prop.SetValue(ret, token.ToObject(prop.PropertyType));
+                    }
+
+                }
+                
+            }
 
             return ret;
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-
+            serializer.Serialize(writer, value);
         }
     }
 }

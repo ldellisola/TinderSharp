@@ -46,8 +46,6 @@ The reason behind this is that most of those modules are oriented to their app, 
 
 Matches are fully working, you can get a list of match recomendations and like, pass or superlike the recomendation. You can also unmatch them.
 
-I have not still implemented the endpoints that retrieve current matches, but that shouldn't be a problem.
-
 ### Messages
 
 Messages are fully implemented and you can send written messages, gifs (from giphy) and songs from spotify. You can also retrieve a list of the messages from each match.

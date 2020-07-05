@@ -6,15 +6,17 @@ using TinderSharp.Models.User;
 
 namespace TinderSharp.Models.Images
 {
-    public partial class Photo
+    public class Photo
     {
-        public Guid Id { get; set; }
-        public Uri Url { get; set; }
-        public string FileName { get; set; }
-        public string Extension { get; set; }
-        public string FbId { get; set; }
+        [JsonProperty("id")] public string Id { get; set; }
+        [JsonProperty("url")] public Uri Url { get; set; }
+        [JsonProperty("fileName")] public string FileName { get; set; }
+        [JsonProperty("extension")] public string Extensions { get; set; }
         public List<ProcessedFile> ProcessedFiles { get; set; }
         public CropInfo crop_info { get; set; }
+
+        public string FbId { get; set; }
+
 
         public class ProcessedFile
         {

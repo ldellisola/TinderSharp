@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TinderEndpoint;
-using TinderSharp.Models.User;
-
-namespace TinderSharp.Services.Authentication
+﻿namespace TinderSharp.Services.Authentication
 {
     public class GoogleAuthenticator : IAuthenticator
     {

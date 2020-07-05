@@ -10,7 +10,7 @@ namespace TinderSharp.Models.Music
     {
         [JsonProperty("id")] public string Id { get; set; }
         [JsonProperty("name")] public string Name { get; set; }
-        [JsonProperty("url")] public Uri Sample { get; set; }
+        [JsonProperty("preview_url")] public Uri Sample { get; set; }
         [JsonProperty("album")] public Album Album { get; set; }
         [JsonProperty("artists")] public IList<Artist> Artists { get; set; }
     }

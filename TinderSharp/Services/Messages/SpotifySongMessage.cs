@@ -7,7 +7,7 @@ namespace TinderSharp.Services.Messages
 {
     public class SpotifySongMessage : ISongMessage
     {
-        private string trackId;
+        private readonly string trackId;
         public SpotifySongMessage(Uri url)
         {
             var regex = Regex.Match(url.AbsoluteUri,@"https:\/\/open\.spotify\.com\/track\/(.+)");

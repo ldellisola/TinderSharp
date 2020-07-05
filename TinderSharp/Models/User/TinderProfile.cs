@@ -58,16 +58,7 @@ namespace TinderSharp.Models.User
             [JsonProperty("noonlight_protected")] public bool NoonlightProtected { get; set; }
             [JsonProperty("sync_swipe_enabled")] public bool SyncSwipeEnabled { get; set; }
 
-            public class Interest
-            {
-                public string Id { get; set; }
-                public string Name { get; set; }
-            }
-
-            public class Badge
-            {
-                [JsonProperty("type")] public string Type { get; set; }
-            }
+            
 
             public class Coordinates
             {
@@ -103,45 +94,4 @@ namespace TinderSharp.Models.User
         }
 
     }
-
-    public partial class EmailSettings
-    {
-        public bool new_matches { get; set; }
-        public bool messages { get; set; }
-        public bool promotions { get; set; }
-    }
-
-    
-
-    public partial class PositionInfo
-    {
-        public State State { get; set; }
-        public Country Country { get; set; }
-    }
-
-    public partial class State
-    {
-        public string Name { get; set; }
-        public Bounds Bounds { get; set; }
-    }
-
-    public partial class Country
-    {
-        public string Name { get; set; }
-        public string Cc { get; set; }
-        public Bounds Bounds { get; set; }
-    }
-
-    public partial class Bounds
-    {
-        public Coordinates Ne { get; set; }
-        public Coordinates Sw { get; set; }
-    }
-
-    public partial class Coordinates
-    {
-        public double Lat { get; set; }
-        public double Lng { get; set; }
-    }
-
 }

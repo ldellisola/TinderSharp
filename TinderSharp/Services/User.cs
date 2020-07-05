@@ -1,58 +1,64 @@
-﻿using System;
-using ExtensionMethods;
-using TinderEndpoint;
+﻿
+using System;
+using System.Threading.Tasks;
+using TinderSharp.Extensions;
+using TinderSharp.Models;
 using TinderSharp.Models.User;
 
-namespace ExtensionMethods
-{
-    public static class DateTimeExtension
-    {
-        public static string ToTinderString(this DateTime date)
-        {
-            return date.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
-        }
-    }
-}
+
 
 namespace TinderSharp.Services
 {
     public static class User
     {
-        public static MetadataV2 GetMetadata(this TinderClient tinderClient)
+        private const string UpdatesEndpoint = @"/updates";
+        private const string UsernameEndpoint = @"/profile/username";
+        private const string ProfileEndpoint = @"/v2/profile?include=likes,user,account";
+        private const string MetadataEndpoint = @"/v2/meta";
+
+        public static async Task<Metadata> GetMetadata(this TinderClient tinderClient)
         {
-            var response = new RestMethods(TinderAPI.MetadataV2, tinderClient.XAuthToken).Get<MetadataV2>();
+            var response = await new RestClient(MetadataEndpoint, tinderClient.XAuthToken).Get<Metadata>();
 
             return response;
         }
 
-        public static TinderSharp.Models.User.Profile GetProfile(this TinderClient tinderClient)
+        public static async Task<Profile> GetProfile(this TinderClient tinderClient)
         {
-            var response = new RestMethods(TinderAPI.Profile,
-                tinderClient.XAuthToken).Get<TinderSharp.Models.User.Profile>();
+            var response = await new RestClient(ProfileEndpoint, tinderClient.XAuthToken).Get<Profile>();
 
             return response;
         }
 
-        public static void ChangeUsername(this TinderClient client, string newUsername)
-        { 
-            new RestMethods(TinderAPI.Username, client.XAuthToken).Put( new { username = newUsername });
-        }
-        public static void ResetUsername(this TinderClient client)
+        public static async Task ChangeUsername(this TinderClient client, string newUsername)
         {
-            new RestMethods(TinderAPI.Username, client.XAuthToken).Delete();
+            await new RestClient(UsernameEndpoint, client.XAuthToken).Put(new { username = newUsername });
         }
-        
-        public static Update GetUpdates(this TinderClient client, DateTime updatedFrom = default(DateTime))
+        public static async Task ResetUsername(this TinderClient client)
+        {
+            await new RestClient(UsernameEndpoint, client.XAuthToken).Delete();
+        }
+
+        public static async Task<Update> GetUpdates(this TinderClient client, DateTime updatedFrom = default(DateTime))
         {
             var obj = new
             {
                 nudge = true,
                 last_activity_date = updatedFrom.ToTinderString()
             };
-            var response = new RestMethods(TinderAPI.Updates, client.XAuthToken).Post<Update>(obj);
-        
+            var response = await new RestClient(UpdatesEndpoint, client.XAuthToken).Post<Update>(obj);
+
             return response;
         }
 
+        public static async Task<Profile> ChangeSearchPreferences(this TinderClient client, SearchPreferences pref)
+        {
+            var url = ProfileEndpoint;
+            var response = await new RestClient(url, client.XAuthToken).Post<Profile>(new
+            {
+                user = pref
+            });
+            return response;
+        }
     }
 }

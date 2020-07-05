@@ -1,195 +1,131 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Newtonsoft.Json;
+using TinderSharp.Json;
 
 namespace TinderSharp.Models.User
 {
-    public partial class Metadata
+    [JsonConverter(typeof(ConventionBasedConverter<Metadata>))]
+    public class Metadata
     {
-        public long Status { get; set; }
-        public Account Account { get; set; }
-        public ClientResources client_resources { get; set; }
-        public List<object> Notifications { get; set; }
-        public List<object> Groups { get; set; }
-        public Rating Rating { get; set; }
-        public Travel Travel { get; set; }
-        public List<object> Purchases { get; set; }
-        public Versions Versions { get; set; }
-        public MetadataGlobals Globals { get; set; }
-        public List<string> Tutorials { get; set; }
-        public PlacesMedatada Places { get; set; }
-        public Products Products { get; set; }
-        public UserMetadata User { get; set; }
+        [JsonProperty("account")] public Account Account { get; internal set; }
+        [JsonProperty("background_location.enabled")] public bool BackgroundLocation { get; internal set; }
+        [JsonProperty("boost")] public Boost Boost { get; internal set; }        
+        [JsonProperty("crm_inbox.enabled")]public bool crm_inbox { get; internal set; }
+        [JsonProperty("fast_match")]public FastMatch FastMatch { get; internal set; }
+        [JsonProperty("gold_homepage.enabled")] public bool HasGoldHomePage { get; internal set; }
+        [JsonProperty("multi_photo.enabled")] public bool AreMultiphotoEnabled { get; internal set; }
+        [JsonProperty("readreceipts.enabled")] public bool AreReadReceiptsEnabled { get; internal set; }
+        [JsonProperty("top_picks")] public TopPicks TopPicks { get; internal set; }
+        [JsonProperty("intro_pricing.enabled")]public bool intro_pricing { get; internal set; }
+        [JsonProperty("recs.card_replay")]public bool CardReplay { get; internal set; }
+        [JsonProperty("tinder_plus")]public TinderPlusMetadata TinderPlus { get; internal set; }
+        [JsonProperty("super_like")]public SuperLike SuperLike { get; internal set; }
+        [JsonProperty("profile")] public ProfileMetadata Profile { get; internal set; }
+        [JsonProperty("select")]public Select Select { get; internal set; }
+        [JsonProperty("places")]public PlacesMedatada Places { get; internal set; }
+        public bool HasAcceptedTOS => !_TOS;
+        [JsonProperty("swipe_surge")]public SwipeSurge SwipeSurge { get; internal set; }
+
+        [JsonProperty("terms_of_service.needs_accept")] private bool _TOS { get; set; }
+
+    }
+
+    public class Account
+    {
+        [JsonProperty("email_prompt_required")] public bool EmailPromptRequired { get; internal set; }
+        [JsonProperty("email_prompt_dismissible")] public bool EmailPromptDismissible { get; internal set; }
+        [JsonProperty("email_prompt_show_marketing_opt_in")] public bool ShowMarketingOptIn { get; internal set; }
+        [JsonProperty("email_prompt_show_strict_opt_in")] public bool ShowStrictOptIn { get; internal set; }
+        [JsonProperty("fireboarding")] public bool Fireboarding { get; set; }
+
+    }
+
+    public class Boost
+    {
+        [JsonProperty("enabled")]public bool IsEnabled { get; internal set; }
+        [JsonProperty("duration")] public long Duration { get; internal set; }
+        [JsonProperty("intro_multiplier")] public long IntroMultiplier { get; internal set; }
+        [JsonProperty("use_new_copy")] public bool UseNewCopy { get; internal set; }
+    }
+
+
+    public class FastMatch
+    {
+        [JsonProperty("enabled")] public bool Enabled { get; internal set; }
+        [JsonProperty("preview_minimum_time")] public long PreviewMinimumTime { get; internal set; }
+        [JsonProperty("notif_options")] public List<long> NotificationOptions { get; internal set; }
+        [JsonProperty("notif_defaults")] public long NotificationDefaults { get; internal set; }
+        [JsonProperty("new_count_fetch_interval")] public long NewCountFetchInterval { get; internal set; }
+        [JsonProperty("boost_new_count_fetch_interval")] public long BoostNewCountFetchInterval { get; internal set; }
+        [JsonProperty("new_count_threshold")] public long NewCountThreshold { get; internal set; }
+        [JsonProperty("polling_mode")] public long PollingMode { get; internal set; }
+        [JsonProperty("entry_point")] public bool EntryPoint { get; internal set; }
+        [JsonProperty("use_teaser_endpoint")] public bool UseTeaserEndpoint { get; internal set; }
+    }
+
+    public class Select
+    {
+        [JsonProperty("enabled")] public bool Enabled { get; internal set; }
+        [JsonProperty("recs_enabled")] public bool RecsEnabled { get; internal set; }
+        [JsonProperty("invited")] public bool IsInvited { get; internal set; }
+    }
+
+    public class SuperLike
+    {
+        [JsonProperty("enabled")] public bool Enabled { get; internal set; }
+        [JsonProperty("alc_mode")] public int Mode { get; internal set; }
+    }
+
+
+    public class TinderPlusMetadata
+    {
+        [JsonProperty("enabled")] public bool Enabled { get; internal set; }
+        [JsonProperty("discount")] public bool HasDiscount { get; internal set; }
+    }
+
+    public class TopPicks
+    {
+        [JsonProperty("enabled")] public bool Enabled { get; internal set; }
+        [JsonProperty("local_daily_enabled")] public bool LocalDailyEnabled { get; internal set; }
+        [JsonProperty("local_daily_msg")] public string LocalDailyMessage { get; internal set; }
+        [JsonProperty("free_daily")] public bool HasFreeDaily { get; internal set; }
+        [JsonProperty("num_free_rated_limit")] public long NumFreeRatedLimit { get; internal set; }
+        [JsonProperty("refresh_interval")] public long RefreshInterval { get; internal set; }
+        [JsonProperty("Lookahead")] public long LookAhead { get; internal set; }
+        [JsonProperty("post_swipe_paywall")] public bool PostSwipePaywall { get; internal set; }
+    }
+
+
+    public class ProfileMetadata
+    {
+        [JsonProperty("school_name_max_length")] public long SchoolNameMaxLenght { get; internal set; }
+        [JsonProperty("job_title_max_length")] public long JobTitleMaxLenght { get; internal set; }
+        [JsonProperty("company_name_max_length")] public long CompanyNameMaxLenght { get; internal set; }
+        [JsonProperty("can_add_photos_from_facebook")] public bool CanAddPhotosFromFacebook { get; internal set; }
+        [JsonProperty("can_edit_email")] public bool CanEditEmail { get; internal set; }
+        [JsonProperty("can_edit_jobs")] public bool CanEditJobs { get; internal set; }
+        [JsonProperty("can_edit_schools")] public bool CanEditSchools { get; internal set; }
+        [JsonProperty("can_show_common_connections")] public bool ShowCommonConnections { get; internal set; }
+    }
+
+    public  class SwipeSurge
+    {
+        [JsonProperty("enabled")] public bool Enabled { get; internal set; }
+        [JsonProperty("in_swipe_surge")] public bool IsActive { get; internal set; }
+    }
+
+
+    public class PlacesMedatada
+    {
+        [JsonProperty("available")] public bool Available { get; internal set; }
+        [JsonProperty("places_ui")] public string PlacesUI { get; internal set; }
     }
 
 
 
 
-    public partial class RateCard
-    {
-        public List<Carousel> carousel { get; set; }
-    }
-
-    public partial class Carousel
-    {
-        public string slug { get; set; }
-    }
-
-    public partial class MetadataGlobals
-    {
-        public long boost_intro_multiplier { get; set; }
-        public long ad_swipe_interval { get; set; }
-        public bool rate_app { get; set; }
-        public bool app_boy { get; set; }
-        public long super_like_alc_mode { get; set; }
-        public bool super_like { get; set; }
-        public bool recs_blend { get; set; }
-        public CreditCard credit_card { get; set; }
-        public bool squads_enabled { get; set; }
-        public long squads_extension_length { get; set; }
-        public long squads_expiration_notice { get; set; }
-        public bool photo_preview_enabled { get; set; }
-        public bool discount { get; set; }
-        public bool crm_inbox_enabled { get; set; }
-        public bool boost { get; set; }
-        public long boost_duration { get; set; }
-        public bool fast_match { get; set; }
-        public long fast_match_preview_minimum_time { get; set; }
-        public List<long> fast_match_notif_options { get; set; }
-        public long fast_match_notif_default { get; set; }
-        public long fast_match_new_count_fetch_interval { get; set; }
-        public long fast_match_boost_new_count_fetch_interval { get; set; }
-        public long fast_match_new_count_threshold { get; set; }
-        public long fast_match_polling_mode { get; set; }
-        public bool fast_match_entry_point { get; set; }
-        public bool fast_match_use_teaser_endpoint { get; set; }
-        public bool top_picks { get; set; }
-        public bool top_picks_local_daily_enabled { get; set; }
-        public string top_picks_local_daily_msg { get; set; }
-        public TopPicksLocalDailyOffsets top_picks_local_daily_offsets { get; set; }
-        public bool top_picks_free_daily { get; set; }
-        public long top_picks_num_free_rated_limit { get; set; }
-        public long top_picks_refresh_interval { get; set; }
-        public long top_picks_lookahead { get; set; }
-        public bool top_picks_post_swipe_paywall { get; set; }
-        public bool intro_pricing { get; set; }
-        public bool paywall_full_price { get; set; }
-        public bool paywall_e1 { get; set; }
-        public bool paywall_e2 { get; set; }
-        public bool paywall_bouncer_avatar { get; set; }
-        public long paywall_e3 { get; set; }
-        public long paywall_e4 { get; set; }
-        public bool merchandising_gold_v1_enabled { get; set; }
-        public bool merchandising_gold_v2_enabled { get; set; }
-        public bool can_edit_jobs { get; set; }
-        public bool can_edit_schools { get; set; }
-        public bool can_edit_email { get; set; }
-        public bool can_add_photos_from_facebook { get; set; }
-        public bool can_show_common_connections { get; set; }
-        public bool web_payments_enabled { get; set; }
-        public bool card_replay { get; set; }
-        public TypingIndicator typing_indicator { get; set; }
-        public ProfileMetadata Profile { get; set; }
-        public bool email_prompt_required { get; set; }
-        public bool email_prompt_dismissible { get; set; }
-        public bool email_prompt_show_marketing_opt_in { get; set; }
-        public bool email_prompt_show_strict_opt_in { get; set; }
-        public SwipeSurge swipe_surge { get; set; }
-    }
-
-    public partial class CreditCard
-    {
-        public long variant { get; set; }
-        public bool price_tos_on_top { get; set; }
-    }
-
-    public partial class ProfileMetadata
-    {
-        public long school_name_max_length { get; set; }
-        public long job_title_max_length { get; set; }
-        public long _company_name_max_length { get; set; }
-    }
-
-    public partial class SwipeSurge
-    {
-        public bool Enabled { get; set; }
-        public bool in_swipe_surge { get; set; }
-    }
-
-    public partial class TopPicksLocalDailyOffsets
-    {
-        public long Offset0 { get; set; }
-        public long Offset1 { get; set; }
-        public long Offset2 { get; set; }
-        public long Offset3 { get; set; }
-    }
-
-    public partial class TypingIndicator
-    {
-        public long typing_heartbeat { get; set; }
-        public long typing_ttl { get; set; }
-    }
-
-    public partial class PlacesMedatada
-    {
-        public bool available { get; set; }
-        public string places_ui { get; set; }
-    }
-
-    public partial class Products
-    {
-        public Boost Superlike { get; set; }
-        public Boost Boost { get; set; }
-    }
-
-    public partial class Boost
-    {
-        public Regular Regular { get; set; }
-    }
-
-    public partial class Regular
-    {
-        public List<Skus> Skus { get; set; }
-    }
-
-    public partial class Skus
-    {
-        public string product_type { get; set; }
-        public string purchase_type { get; set; }
-        public string product_id { get; set; }
-        public long Amount { get; set; }
-        public bool? is_primary { get; set; }
-        public bool? is_base_group { get; set; }
-    }
-
-    public partial class Rating
-    {
-        public long likes_remaining { get; set; }
-        // public SuperLikes super_likes { get; set; }
-    }
-
-    
-
-    public partial class Travel
-    {
-        public bool is_traveling { get; set; }
-    }
-
-    public partial class UserMetadata: User
-    {
-        public bool top_picks_discoverable { get; set; }
-        public bool photos_processing { get; set; }
-        public bool photo_optimizer_enabled { get; set; }
-        public bool photo_optimizer_has_result { get; set; }
-        public bool spotify_connected { get; set; }
-        public bool spotify_anthem { get; set; }
-        public bool squads_discoverable { get; set; }
-        public List<object> squads { get; set; }
-        public bool can_create_squad { get; set; }
-        public bool squad_ads_shown { get; set; }
-        public string phone_id { get; set; }
-        public EmailSettings email_settings { get; set; }
-    }
 
 
   
