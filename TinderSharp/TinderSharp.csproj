@@ -2,6 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>TinderSharp</PackageId>
+    <Version>0.0.1</Version>
+    <Authors>Lucas Dell'Isola</Authors>
+    <Company>Still Developing Co</Company>
+    <PackageTags>Tinder;API</PackageTags>
+    <PackageDescription>
+      This simple wrapper of the Tinder API is working as of 7/5/2020. All basic endpoints are currently covered but there is no TinderPlus or any other payed service support.
+    </PackageDescription>
+    <RepositoryUrl>https://github.com/ldellisola/TinderSharp</RepositoryUrl>
+
+    <Title>
+      TinderSharp
+    </Title>
   </PropertyGroup>
 
   <ItemGroup>

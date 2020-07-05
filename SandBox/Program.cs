@@ -11,7 +11,7 @@ namespace SandBox
     {
         static async Task Main(string[] args)
         {
-            var client = new TinderClient("1c26e913-bee5-4b68-8fbc-41a2b66991a8");
+            var client = new TinderClient("");
 
             // var resp = client.GetProfile();
             var metadata = await client.GetMetadata();
