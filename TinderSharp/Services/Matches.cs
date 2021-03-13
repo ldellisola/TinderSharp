@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using TinderSharp.Models;
 using TinderSharp.Models.Matches;
@@ -23,10 +24,11 @@ namespace TinderSharp.Services
             return response.Results;
         }
 
-        public static async Task<MatchResponse> Like(this TinderClient client, string userId)
+        public static async Task<MatchResponse> Like(this TinderClient client, string userId, long sNumber)
         {
             var url = LikeEndpoint.Replace("{UserId}", userId);
-            var response = await new RestClient(url, client.XAuthToken).Post<MatchResponse>();
+            var content = new StringContent("{\"s_number\":" + sNumber + "}");
+            var response = await new RestClient(url, client.XAuthToken).Post<MatchResponse>(content);
 
             return response;
         }
